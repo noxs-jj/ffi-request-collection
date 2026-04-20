@@ -1,0 +1,89 @@
+name: 💬 Feedback
+description: >
+  Share your experience, what you love, what's missing,
+  or help us decide what to build next
+title: "[Feedback]: "
+labels: ["feedback", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Your feedback directly shapes what we build next.
+        This takes less than 2 minutes — thank you! 🙏
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: What kind of feedback is this?
+      options:
+        - General impression
+        - Something I love
+        - Something that confused me
+        - Something I'm missing
+        - Suggestion for improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback
+      description: Tell us what's on your mind, no filter needed.
+      placeholder: "I think the app could..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: usage
+    attributes:
+      label: How often do you use the app?
+      options:
+        - Daily
+        - Weekly
+        - Monthly
+        - First time / just trying it
+    validations:
+      required: true
+
+  - type: dropdown
+    id: satisfaction
+    attributes:
+      label: Overall, how satisfied are you with the app?
+      options:
+        - ⭐ 1 — Very dissatisfied
+        - ⭐⭐ 2 — Dissatisfied
+        - ⭐⭐⭐ 3 — Neutral
+        - ⭐⭐⭐⭐ 4 — Satisfied
+        - ⭐⭐⭐⭐⭐ 5 — Very satisfied
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: next_features
+    attributes:
+      label: Which features would you most like to see next?
+      description: Check all that apply — this helps us prioritise.
+      options:
+        - label: Annual & quarterly projections
+        - label: Budget goals & alerts
+        - label: PDF / CSV export
+        - label: Bank account sync
+        - label: Tax optimisation tips
+        - label: Multi-currency support
+        - label: Mobile app
+        - label: Collaborative / shared budgets
+
+  - type: textarea
+    id: next_feature_other
+    attributes:
+      label: Anything else you'd like to see?
+      description: A feature not listed above, or more detail on one you checked.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Any other comments?
+    validations:
+      required: false
