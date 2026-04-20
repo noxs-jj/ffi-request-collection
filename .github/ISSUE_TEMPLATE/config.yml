@@ -1,0 +1,22 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: 💬 Share Feedback
+    url: https://github.com/noxs-jj/ffi-request-collection/issues/new?template=feedback.yml
+    about: >
+      Tell us what you think, what you love, or what you'd like to see next.
+
+  - name: 🚀 Request a Feature
+    url: https://github.com/noxs-jj/ffi-request-collection/issues/new?template=feature_request.yml
+    about: >
+      Got an idea? Share it and help us prioritise what to build next.
+
+  - name: 🐛 Report a Bug
+    url: https://github.com/noxs-jj/ffi-request-collection/issues/new?template=bug_report.yml
+    about: >
+      Something broken? Help us fix it fast with a detailed report.
+
+  - name: 📖 App Repository
+    url: https://github.com/noxs-jj/my-taxes
+    about: >
+      Browse the source code, open issues, or follow development progress.
