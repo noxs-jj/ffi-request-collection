@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>my-taxes — Submit a request</title>
+  <style>
+    :root{--bg:#0f1720;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--text:#e6eef6}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#071026 0%,#0b1220 100%);color:var(--text);-webkit-font-smoothing:antialiased}
+    .container{max-width:760px;margin:32px auto;padding:20px}
+    header{display:flex;align-items:center;gap:12px}
+    h1{margin:0;font-size:20px}
+    .tabs{display:flex;gap:8px;margin:18px 0}
+    .tab{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer}
+    .tab[aria-pressed="true"]{background:linear-gradient(90deg,rgba(6,182,212,0.12),rgba(99,102,241,0.06));border-color:rgba(6,182,212,0.28);outline:2px solid rgba(6,182,212,0.12)}
+    .card{background:var(--card);border-radius:12px;padding:16px;margin-top:12px;border:1px solid rgba(255,255,255,0.03)}
+    label{display:block;font-weight:600;margin-bottom:6px;color:var(--text)}
+    .muted{color:var(--muted);font-size:13px;margin-bottom:8px}
+    input[type=text],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);resize:vertical}
+    textarea{min-height:80px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:flex;gap:8px;align-items:center;margin-top:12px}
+    button{background:var(--accent);color:#022;border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+    button[disabled]{opacity:0.6;cursor:not-allowed}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 12px}
+    .error{color:#ffb4b4;background:rgba(255,180,180,0.04);padding:8px;border-radius:8px;margin-top:8px}
+    .hidden{display:none}
+    @media (max-width:640px){.row{grid-template-columns:1fr}}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    a.link{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="https://raw.githubusercontent.com/noxs-jj/ffi-request-collection/main/logo.png" alt="my-taxes logo" width="40" height="40" onerror="this.style.display='none'">
+      <div>
+        <h1>my-taxes — Submit a bug, feature request, or feedback</h1>
+        <div class="muted">Public form — creates an issue in the <strong>noxs-jj/ffi-request-collection</strong> repo</div>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Request type">
+      <button class="tab" role="tab" aria-pressed="true" data-target="bug">🐛 Bug report</button>
+      <button class="tab" role="tab" aria-pressed="false" data-target="feature">🚀 Feature request</button>
+      <button class="tab" role="tab" aria-pressed="false" data-target="feedback">💬 Feedback</button>
+    </div>
+
+    <div id="forms">
+      <form id="bug" class="card" novalidate>
+        <div class="muted">Please fill in as much detail as possible. The more info you give, the faster we can fix it.</div>
+        <div>
+          <label for="bug_description">What happened? *</label>
+          <textarea id="bug_description" name="description" placeholder="When I click on X, Y happens instead of Z..." required></textarea>
+          <div id="err_bug_description" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="bug_expected">What did you expect to happen? *</label>
+          <textarea id="bug_expected" name="expected" placeholder="I expected..." required></textarea>
+          <div id="err_bug_expected" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="bug_steps">Steps to reproduce *</label>
+          <textarea id="bug_steps" name="steps" placeholder="1. Go to '...'\n2. Click on '...'\n3. See error" required></textarea>
+          <div id="err_bug_steps" class="error hidden"></div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="bug_os">Operating System *</label>
+            <select id="bug_os" name="os" required>
+              <option value="">Select</option>
+              <option>Windows</option>
+              <option>macOS</option>
+              <option>Linux</option>
+              <option>iOS</option>
+              <option>Android</option>
+              <option>Other</option>
+            </select>
+            <div id="err_bug_os" class="error hidden"></div>
+          </div>
+
+          <div>
+            <label for="bug_browser">Browser *</label>
+            <select id="bug_browser" name="browser" required>
+              <option value="">Select</option>
+              <option>Chrome</option>
+              <option>Firefox</option>
+              <option>Safari</option>
+              <option>Edge</option>
+              <option>Brave</option>
+              <option>Other</option>
+            </select>
+            <div id="err_bug_browser" class="error hidden"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="bug_browser_version">Browser version</label>
+            <input id="bug_browser_version" name="browser_version" placeholder="e.g. Chrome 124.0.6367">
+          </div>
+          <div>
+            <label for="bug_app_version">App version</label>
+            <input id="bug_app_version" name="app_version" placeholder="e.g. v0.3.1">
+          </div>
+        </div>
+
+        <div>
+          <label for="bug_frequency">How often does this happen? *</label>
+          <select id="bug_frequency" name="frequency" required>
+            <option value="">Select</option>
+            <option>Always (every time)</option>
+            <option>Often</option>
+            <option>Sometimes</option>
+            <option>Only once</option>
+          </select>
+          <div id="err_bug_frequency" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="bug_logs">Console errors or logs</label>
+          <textarea id="bug_logs" name="logs" placeholder="Paste console errors here"></textarea>
+        </div>
+
+        <div>
+          <label for="bug_screenshots">Screenshots or screen recording</label>
+          <textarea id="bug_screenshots" name="screenshots" placeholder="Describe or provide links to images"></textarea>
+        </div>
+
+        <div>
+          <label for="bug_context">Additional context</label>
+          <textarea id="bug_context" name="context"></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" aria-live="polite">Submit bug</button>
+          <button type="button" class="secondary" id="bug_reset">Reset</button>
+        </div>
+      </form>
+
+      <form id="feature" class="card hidden" novalidate>
+        <div class="muted">Thanks for taking the time to suggest a feature! The more context you give, the better we can prioritise it.</div>
+        <div>
+          <label for="feat_problem">What problem does this solve? *</label>
+          <textarea id="feat_problem" name="problem" placeholder="I'm always frustrated when..." required></textarea>
+          <div id="err_feat_problem" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="feat_solution">Describe the feature you'd like *</label>
+          <textarea id="feat_solution" name="solution" placeholder="I would like to be able to..." required></textarea>
+          <div id="err_feat_solution" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="feat_alternatives">Alternatives you've considered</label>
+          <textarea id="feat_alternatives" name="alternatives" placeholder="I've tried..."></textarea>
+        </div>
+
+        <div>
+          <label for="feat_area">Which area does this relate to? *</label>
+          <select id="feat_area" name="area" required>
+            <option value="">Select</option>
+            <option>Financial Statement (monthly view)</option>
+            <option>Tax Feature</option>
+            <option>Income &amp; Spending</option>
+            <option>Reports &amp; Projections</option>
+            <option>Data &amp; Export</option>
+            <option>UI / Design</option>
+            <option>Other</option>
+          </select>
+          <div id="err_feat_area" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="feat_priority">How important is this to you? *</label>
+          <select id="feat_priority" name="priority" required>
+            <option value="">Select</option>
+            <option>🔥 Blocker — I can't use the app without it</option>
+            <option>🙏 High — I really need this</option>
+            <option>👍 Medium — Would be nice to have</option>
+            <option>💡 Low — Just an idea</option>
+          </select>
+          <div id="err_feat_priority" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="feat_context">Additional context</label>
+          <textarea id="feat_context" name="context" placeholder="Screenshots, mockups, links..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" aria-live="polite">Submit feature</button>
+          <button type="button" class="secondary" id="feat_reset">Reset</button>
+        </div>
+      </form>
+
+      <form id="feedback" class="card hidden" novalidate>
+        <div class="muted">Your feedback directly shapes what we build next. This takes less than 2 minutes — thank you!</div>
+
+        <div>
+          <label for="fb_type">What kind of feedback is this? *</label>
+          <select id="fb_type" name="type" required>
+            <option value="">Select</option>
+            <option>General impression</option>
+            <option>Something I love</option>
+            <option>Something that confused me</option>
+            <option>Something I'm missing</option>
+            <option>Suggestion for improvement</option>
+          </select>
+          <div id="err_fb_type" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="fb_feedback">Your feedback *</label>
+          <textarea id="fb_feedback" name="feedback" placeholder="I think the app could..." required></textarea>
+          <div id="err_fb_feedback" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="fb_usage">How often do you use the app? *</label>
+          <select id="fb_usage" name="usage" required>
+            <option value="">Select</option>
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Monthly</option>
+            <option>First time / just trying it</option>
+          </select>
+          <div id="err_fb_usage" class="error hidden"></div>
+        </div>
+
+        <div>
+          <label for="fb_satisfaction">Overall, how satisfied are you with the app? *</label>
+          <select id="fb_satisfaction" name="satisfaction" required>
+            <option value="">Select</option>
+            <option>⭐ 1 — Very dissatisfied</option>
+            <option>⭐⭐ 2 — Dissatisfied</option>
+            <option>⭐⭐⭐ 3 — Neutral</option>
+            <option>⭐⭐⭐⭐ 4 — Satisfied</option>
+            <option>⭐⭐⭐⭐⭐ 5 — Very satisfied</option>
+          </select>
+          <div id="err_fb_satisfaction" class="error hidden"></div>
+        </div>
+
+        <fieldset style="border:none;padding:0;margin:0">
+          <legend style="font-weight:600;margin-top:8px">Which features would you most like to see next?</legend>
+          <div class="muted">Check all that apply — this helps us prioritise.</div>
+          <div>
+            <label><input type="checkbox" name="next_features" value="Annual & quarterly projections"> Annual & quarterly projections</label><br>
+            <label><input type="checkbox" name="next_features" value="Budget goals & alerts"> Budget goals & alerts</label><br>
+            <label><input type="checkbox" name="next_features" value="PDF / CSV export"> PDF / CSV export</label><br>
+            <label><input type="checkbox" name="next_features" value="Bank account sync"> Bank account sync</label><br>
+            <label><input type="checkbox" name="next_features" value="Tax optimisation tips"> Tax optimisation tips</label><br>
+            <label><input type="checkbox" name="next_features" value="Multi-currency support"> Multi-currency support</label><br>
+            <label><input type="checkbox" name="next_features" value="Mobile app"> Mobile app</label><br>
+            <label><input type="checkbox" name="next_features" value="Collaborative / shared budgets"> Collaborative / shared budgets</label>
+          </div>
+        </fieldset>
+
+        <div>
+          <label for="fb_next_feature_other">Anything else you'd like to see?</label>
+          <textarea id="fb_next_feature_other" name="next_feature_other"></textarea>
+        </div>
+
+        <div>
+          <label for="fb_context">Any other comments?</label>
+          <textarea id="fb_context" name="context"></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" aria-live="polite">Submit feedback</button>
+          <button type="button" class="secondary" id="fb_reset">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="result" class="card hidden" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    // GITHUB_TOKEN placeholder — replace before pushing
+    const GITHUB_TOKEN = 'REPLACE_WITH_YOUR_PAT';
+
+    const repoApi = 'https://api.github.com/repos/noxs-jj/ffi-request-collection/issues';
+
+    // Simple tab handling
+    document.querySelectorAll('.tab').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed','false'));
+        btn.setAttribute('aria-pressed','true');
+        const target = btn.dataset.target;
+        document.querySelectorAll('#forms > form').forEach(f=>f.classList.add('hidden'));
+        document.getElementById(target).classList.remove('hidden');
+        document.getElementById(target).querySelector('textarea, input, select')?.focus();
+        document.getElementById('result').classList.add('hidden');
+      });
+    });
+
+    // Helpers
+    function showError(el, msg){ el.classList.remove('hidden'); el.textContent = msg }
+    function clearError(el){ el.classList.add('hidden'); el.textContent = '' }
+
+    function gather(form){
+      const data = {};
+      new FormData(form).forEach((v,k)=>{
+        if(k in data){ // multiple checkboxes
+          if(Array.isArray(data[k])) data[k].push(v); else data[k] = [data[k], v];
+        } else data[k]=v;
+      });
+      // also collect checkboxes with same name not checked (they won't be present)
+      return data;
+    }
+
+    function buildMarkdown(fieldDefs, values){
+      // fieldDefs: array of {label,id,type}
+      let md = '';
+      fieldDefs.forEach(f=>{
+        const v = values[f.id];
+        md += `## ${f.label}\n`;
+        if(f.type === 'checkboxes'){
+          // v may be undefined or array
+          const opts = f.options || [];
+          opts.forEach(opt=>{
+            const checked = Array.isArray(v) ? v.includes(opt) : v===opt;
+            md += `- [${checked ? 'x' : ' '}] ${opt}\n`;
+          });
+          md += '\n';
+        } else {
+          md += `${v || ''}\n\n`;
+        }
+      });
+      return md;
+    }
+
+    async function postIssue(payload){
+      const res = await fetch(repoApi,{
+        method:'POST',
+        headers:{
+          'Authorization': 'Bearer ' + GITHUB_TOKEN,
+          'Accept':'application/vnd.github+json',
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      return res.json().then(j=>({ok:res.ok,status:res.status,body:j}));
+    }
+
+    // Mapping of form fields to labels for rendering body (match templates)
+    const mappings = {
+      bug: [
+        {label:'What happened?', id:'description'},
+        {label:'What did you expect to happen?', id:'expected'},
+        {label:'Steps to reproduce', id:'steps'},
+        {label:'Operating System', id:'os'},
+        {label:'Browser', id:'browser'},
+        {label:'Browser version', id:'browser_version'},
+        {label:'App version', id:'app_version'},
+        {label:'How often does this happen?', id:'frequency'},
+        {label:'Console errors or logs', id:'logs'},
+        {label:'Screenshots or screen recording', id:'screenshots'},
+        {label:'Additional context', id:'context'}
+      ],
+      feature: [
+        {label:'What problem does this solve?', id:'problem'},
+        {label:'Describe the feature you\'d like', id:'solution'},
+        {label:'Alternatives you\'ve considered', id:'alternatives'},
+        {label:'Which area does this relate to?', id:'area'},
+        {label:'How important is this to you?', id:'priority'},
+        {label:'Additional context', id:'context'}
+      ],
+      feedback: [
+        {label:'What kind of feedback is this?', id:'type'},
+        {label:'Your feedback', id:'feedback'},
+        {label:'How often do you use the app?', id:'usage'},
+        {label:'Overall, how satisfied are you with the app?', id:'satisfaction'},
+        {label:"Which features would you most like to see next?", id:'next_features', type:'checkboxes', options:[
+          'Annual & quarterly projections','Budget goals & alerts','PDF / CSV export','Bank account sync','Tax optimisation tips','Multi-currency support','Mobile app','Collaborative / shared budgets'
+        ]},
+        {label:'Anything else you\'d like to see?', id:'next_feature_other'},
+        {label:'Any other comments?', id:'context'}
+      ]
+    };
+
+    function setLoading(btn, on){ if(on){ btn.disabled=true; btn.textContent='Sending…' } else { btn.disabled=false } }
+
+    function truncate(str,len){ if(!str) return ''; return str.length>len?str.slice(0,len-1)+'…':str }
+
+    // Generic submit handler
+    ['bug','feature','feedback'].forEach(type=>{
+      const form = document.getElementById(type);
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        // clear errors
+        form.querySelectorAll('.error').forEach(clearError);
+        const btn = form.querySelector('button[type=submit]');
+        // basic required validation
+        let invalid=false;
+        form.querySelectorAll('[required]').forEach(f=>{
+          if(!f.value.trim()){ invalid=true; const id = 'err_'+f.id; const el = document.getElementById(id); if(el) showError(el,'This field is required'); }
+        });
+        if(invalid) return form.querySelector('[required]').focus();
+
+        const values = gather(form);
+        // build title
+        let title='';
+        if(type==='bug'){
+          title = `[Bug]: ${truncate(values.description,60)}`;
+        } else if(type==='feature'){
+          title = `[Feature]: ${truncate(values.solution,120)}`;
+        } else {
+          title = `[Feedback]: ${values.type || 'General'}`;
+        }
+
+        // build body
+        const md = buildMarkdown(mappings[type], values);
+
+        const labels = type==='bug' ? ['bug','triage'] : type==='feature' ? ['feature-request','triage'] : ['feedback','triage'];
+
+        const payload = {title, body: md, labels};
+
+        setLoading(btn,true);
+        const resultEl = document.getElementById('result');
+        try{
+          const res = await postIssue(payload);
+          setLoading(btn,false);
+          if(res.ok){
+            // show success
+            form.classList.add('hidden');
+            resultEl.classList.remove('hidden');
+            resultEl.innerHTML = `<h2>Thanks — your issue was created</h2><p><a class="link" href="${res.body.html_url}" target="_blank" rel="noopener">Open the created issue</a></p>`;
+            // mark form as success for accessibility
+            resultEl.focus && resultEl.focus();
+          } else {
+            const msg = res.body && res.body.message ? res.body.message : `Request failed (${res.status})`;
+            resultEl.classList.remove('hidden');
+            resultEl.innerHTML = `<div class="error">Error creating issue: ${msg}</div>`;
+          }
+        }catch(err){
+          setLoading(btn,false);
+          resultEl.classList.remove('hidden');
+          resultEl.innerHTML = `<div class="error">Network error: ${err.message}</div>`;
+        }
+      });
+    });
+
+    // Reset handlers
+    document.getElementById('bug_reset').addEventListener('click',()=>document.getElementById('bug').reset());
+    document.getElementById('feat_reset').addEventListener('click',()=>document.getElementById('feature').reset());
+    document.getElementById('fb_reset').addEventListener('click',()=>document.getElementById('feedback').reset());
+
+  </script>
+</body>
+</html>
