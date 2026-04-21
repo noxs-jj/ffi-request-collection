@@ -21,6 +21,12 @@ jobs:
       - name: Validate index.html exists
         run: test -s index.html || (echo "index.html missing or empty" && exit 1)
 
+      - name: Inject PAT into index.html
+        run: |
+          sed -i "s|REPLACE_WITH_YOUR_PAT|${{ secrets.ISSUES_PAT }}|g" index.html
+        # The ISSUES_PAT secret is stored in repo Settings → Secrets → Actions.
+        # It never appears in source — only in the deployed gh-pages build.
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
