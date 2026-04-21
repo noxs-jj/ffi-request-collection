@@ -282,10 +282,8 @@
   </div>
 
   <script>
-    // GITHUB_TOKEN — fetched at runtime from remote URL (never stored in source)
-    const GITHUB_TOKEN = fetch('https://www.noxs.net/up/pat_issues_ffi')
-      .then(r => { if(!r.ok) throw new Error('Token fetch failed: ' + r.status); return r.text(); })
-      .then(t => t.trim());
+    // GITHUB_TOKEN placeholder — replaced during deploy from ISSUES_PAT secret
+    const GITHUB_TOKEN = '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';
 
     const repoApi = 'https://api.github.com/repos/noxs-jj/ffi-request-collection/issues';
 
@@ -339,11 +337,10 @@
     }
 
     async function postIssue(payload){
-      const token = await GITHUB_TOKEN;
       const res = await fetch(repoApi,{
         method:'POST',
         headers:{
-          'Authorization': 'Bearer ' + token,
+          'Authorization': 'Bearer ' + GITHUB_TOKEN,
           'Accept':'application/vnd.github+json',
           'Content-Type':'application/json'
         },
